@@ -1,4 +1,8 @@
 package tk.zetsuboutoshio.cathr.searchorchestrator.service;
 
-public interface SearchPattern {
+import tk.zetsuboutoshio.cathr.searchorchestrator.model.SearchPattern;
+
+public interface SearchPatternService {
+
+    boolean create(SearchPattern pattern);
 }
