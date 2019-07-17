@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
-import org.springframework.data.annotation.Id;
 
 import javax.persistence.*;
 import java.util.List;
@@ -15,7 +14,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "search_patterns")
+@Table(name = "search_pattern")
 public class SearchPattern {
 
     @Id
@@ -27,10 +26,12 @@ public class SearchPattern {
     @Column(name = "uuid", updatable = false, nullable = false)
     private UUID uuid;
 
-    @Column(name = "source_id")
+    @ManyToOne
+    @JoinColumn(name="source_id")
     private SearchSource source;
 
-    @ManyToOne
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "search_pattern_uuid")
     private List<SearchArgument> arguments;
 
     @Column(name = "user_uuid")

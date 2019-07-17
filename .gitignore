@@ -30,5 +30,7 @@ build/
 ### VS Code ###
 .vscode/
 
-### flyway props ###
+### properties ###
 flyway.properties
+application.properties
+
