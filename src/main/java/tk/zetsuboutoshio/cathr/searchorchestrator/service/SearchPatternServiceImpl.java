@@ -4,6 +4,8 @@ import org.springframework.stereotype.Service;
 import tk.zetsuboutoshio.cathr.searchorchestrator.model.SearchPattern;
 import tk.zetsuboutoshio.cathr.searchorchestrator.repository.SearchEngineCrudRepository;
 
+import java.util.List;
+
 @Service
 public class SearchPatternServiceImpl implements SearchPatternService {
 
@@ -18,6 +20,11 @@ public class SearchPatternServiceImpl implements SearchPatternService {
         searchEngineCrudRepository.save(pattern);
 
         return true;
+    }
+
+    @Override
+    public Iterable<SearchPattern> getAll() {
+        return searchEngineCrudRepository.findAll();
     }
 
 }

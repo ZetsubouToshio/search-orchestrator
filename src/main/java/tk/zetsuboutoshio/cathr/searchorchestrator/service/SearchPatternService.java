@@ -5,4 +5,6 @@ import tk.zetsuboutoshio.cathr.searchorchestrator.model.SearchPattern;
 public interface SearchPatternService {
 
     boolean create(SearchPattern pattern);
+
+    Iterable<SearchPattern> getAll();
 }
