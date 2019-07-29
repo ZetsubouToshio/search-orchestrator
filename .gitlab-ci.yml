@@ -19,7 +19,7 @@ mvn build:
   stage: build
   script:
     - rm -rf target
-    - ./mvnw clean install
+    - ./mvnw clean install -DskipTests
   only:
     - master # Only run on master branch
 
