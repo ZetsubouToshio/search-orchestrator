@@ -32,5 +32,5 @@ build/
 
 ### properties ###
 flyway.properties
-application.properties
+application-dev.properties
 
