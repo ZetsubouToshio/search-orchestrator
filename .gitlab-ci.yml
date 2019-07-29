@@ -1,0 +1,39 @@
+# Using the node alpine image to build the React app
+image: ubuntu:latest
+
+# Cache node modules - speeds up future builds
+cache:
+  key: "$CI_BUILD_REF_NAME" # contains either the branch or the tag, so it's caching per branch
+  untracked: true
+  paths:
+    - target
+
+# Name the stages involved in the pipeline
+stages:
+  - build
+  - deploy
+
+# Job name for gitlab to recognise this results in assets for Gitlab Pages
+# https://docs.gitlab.com/ee/user/project/pages/introduction.html#gitlab-pages-requirements
+npm build:
+  stage: build
+  script:
+    - rm -rf target
+    - mvnw clean install
+  only:
+    - master # Only run on master branch
+
+docker build and push:
+  stage: deploy
+  image: docker:stable
+  services:
+    - docker:dind
+  variables:
+    DOCKER_HOST: tcp://docker:2375
+    DOCKER_DRIVER: overlay2
+  script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - mvnw dockerfile:build
+    - mvnw dockerfile:push
+  only:
+    - master
