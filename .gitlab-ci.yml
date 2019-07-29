@@ -33,7 +33,7 @@ docker build and push:
     DOCKER_DRIVER: overlay2
   script:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-    - ./mvnw dockerfile:build
-    - ./mvnw dockerfile:push
+    - docker build -t $CI_REGISTRY/cat-hr/search-orchestrator:latest .
+    - docker push $CI_REGISTRY/cat-hr/search-orchestrator:latest
   only:
     - master
